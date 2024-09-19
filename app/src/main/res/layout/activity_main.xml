@@ -30,10 +30,12 @@
         android:id="@+id/fab_add"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="16dp"
         android:backgroundTint="@color/green"
         android:src="@drawable/ic_add"
+        app:fabCustomSize="64dp"
+        app:fabSize="custom"
         app:fabSize="normal"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Fab.Rounded" />
 

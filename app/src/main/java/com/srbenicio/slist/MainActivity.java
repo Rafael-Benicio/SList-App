@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
         itemList.add(new Item("Item 1", R.drawable.placeholder_image));
         itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
         // Adicione mais itens conforme necessário
 
         // Configurar RecyclerView

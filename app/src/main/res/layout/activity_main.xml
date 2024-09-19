@@ -2,19 +2,20 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/base">
 
     <!-- Toolbar personalizada -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/cardview_dark_background"
-        app:title="Nome do App"
-        app:titleTextColor="@android:color/white"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@color/base_l"
+        app:contentInsetEnd="16dp"
         app:contentInsetStart="16dp"
-        app:contentInsetEnd="16dp" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="@android:color/white" />
 
     <!-- Outros componentes serão adicionados aqui -->
     <androidx.recyclerview.widget.RecyclerView
@@ -22,9 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="72dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
@@ -32,10 +33,9 @@
         android:layout_height="64dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/okay"
         android:src="@drawable/ic_add"
         app:fabCustomSize="64dp"
-        app:fabSize="custom"
         app:fabSize="normal"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Fab.Rounded" />
 

@@ -2,6 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#4CAF50</color>
+    <!-- Base -->
+    <color name="base">#a0f</color>
+    <color name="base_l">#b6f</color>
+    <!-- Buttons -->
+    <color name="negate">#f00</color>
+    <color name="negate_l">#ff7774</color>
+    <color name="negate_d">#a00</color>
 
+    <color name="okay">#0f0</color>
+    <color name="okay_l">#ccffc4</color>
+    <color name="okay_d">#0a0</color>
 </resources>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SList</string>
     <string name="plus_fab_button_desc">Button to Add itens</string>
+    <string name="default_group_name">Something goes wrong?</string>
 </resources>

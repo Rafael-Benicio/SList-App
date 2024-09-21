@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/modal_card"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    android:layout_margin="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Close Button -->
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close" />
+
+        <!-- Big Text -->
+        <TextView
+            android:id="@+id/big_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/new_group_name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Small Text -->
+        <TextView
+            android:id="@+id/small_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/new_group_name_desc"
+            android:textSize="14sp" />
+
+        <!-- Text Box with Gray Background and Rounded Borders -->
+        <EditText
+            android:id="@+id/text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_background"
+            android:hint="@string/new_group_name_hint"
+            android:padding="8dp" />
+
+        <!-- Second Big Text -->
+        <TextView
+            android:id="@+id/big_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/new_group_image"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Second Small Text -->
+        <TextView
+            android:id="@+id/small_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/new_group_image_desc"
+            android:textSize="14sp" />
+
+        <!-- Button to Choose an Image -->
+        <Button
+            android:id="@+id/choose_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_group_image_button"
+            android:layout_marginTop="12dp" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_group_save"
+            android:backgroundTint="@color/okay"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

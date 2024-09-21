@@ -2,4 +2,11 @@
     <string name="app_name">SList</string>
     <string name="plus_fab_button_desc">Button to Add itens</string>
     <string name="default_group_name">Something goes wrong?</string>
+    <string name="new_group_name">Name</string>
+    <string name="new_group_name_desc">* Write the group name</string>
+    <string name="new_group_name_hint">Group Name</string>
+    <string name="new_group_image">Image</string>
+    <string name="new_group_image_desc">Select the group image cover</string>
+    <string name="new_group_save">Save</string>
+    <string name="new_group_image_button">Choose Image</string>
 </resources>

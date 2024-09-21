@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/modal_card"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
@@ -16,25 +16,33 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Close Button -->
-        <ImageButton
-            android:id="@+id/close_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/new_group_close_modal_button"
-            android:src="@drawable/ic_close" />
-
-        <!-- Big Text -->
-        <TextView
-            android:id="@+id/big_text_1"
-            android:layout_width="wrap_content"
+        <!-- Top Row: Big Text and Close Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/new_group_name"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Big Text -->
+            <TextView
+                android:id="@+id/big_text_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/new_group_name"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Close Button -->
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/new_group_close_modal_button"
+                android:src="@drawable/ic_close" />
+
+        </LinearLayout>
 
         <!-- Small Text -->
         <TextView

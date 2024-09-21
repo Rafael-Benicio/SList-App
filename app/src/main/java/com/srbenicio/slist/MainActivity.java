@@ -23,8 +23,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.annotation.Nullable;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the dialog
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.modal_layout);
+        dialog.setContentView(R.layout.new_group_modal_layout);
         dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
 
         // Find views in the dialog

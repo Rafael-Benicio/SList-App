@@ -9,4 +9,5 @@
     <string name="new_group_image_desc">Select the group image cover</string>
     <string name="new_group_save">Save</string>
     <string name="new_group_image_button">Choose Image</string>
+    <string name="new_group_close_modal_button">close modal button</string>
 </resources>

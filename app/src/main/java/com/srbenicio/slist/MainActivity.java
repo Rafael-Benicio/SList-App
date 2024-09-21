@@ -1,5 +1,6 @@
 package com.srbenicio.slist;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
+    private ActivityResultLauncher<Intent> pickImageLauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(view -> showModalDialog());
+
+        pickImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        imageUri = result.getData().getData();
+                        // Handle the selected image URI as needed
+                        Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
     private void showModalDialog() {
@@ -87,11 +103,11 @@ public class MainActivity extends AppCompatActivity {
         closeButton.setOnClickListener(v -> dialog.dismiss());
 
         chooseImageButton.setOnClickListener(v -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            pickImageLauncher.launch(Intent.createChooser(intent, "Select Picture"));
         });
+
 
         saveButton.setOnClickListener(v -> {
             String inputText = textInput.getText().toString();
@@ -112,15 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show the dialog
         dialog.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

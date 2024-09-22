@@ -3,6 +3,7 @@ package com.srbenicio.slist;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.srbenicio.slist.controllers.DatabaseGroupController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +54,17 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        Cursor cursor = crud.loadData();
+        System.out.println(cursor);
         // Inicializar dados
         itemList = new ArrayList<>();
-        itemList.add(new Item("Item 1", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
-        itemList.add(new Item("Item 2", R.drawable.placeholder_image));
+            do {
+                if (cursor == null)  {break;}
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_NAME));
+                itemList.add(new Item(title, R.drawable.placeholder_image));
+            } while (cursor.moveToNext()); // Move to the next row
 
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recycler_view);

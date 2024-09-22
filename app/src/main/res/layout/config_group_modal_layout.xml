@@ -57,8 +57,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/text_input"
@@ -77,8 +76,8 @@
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="12dp"
-                android:layout_weight="10"
                 android:background="@drawable/btn_okay"
                 android:text="@string/new_group_save"
                 android:textColor="@color/okay_d" />

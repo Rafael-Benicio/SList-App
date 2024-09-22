@@ -15,10 +15,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<Item> items;
     private LayoutInflater inflater;
+    private OnGearIconClickListener gearIconClickListener;
 
-    public ItemAdapter(Context context, List<Item> items) {
+    public interface OnGearIconClickListener {
+        void onGearIconClick(int position);
+    }
+
+    public ItemAdapter(Context context, List<Item> items, OnGearIconClickListener listener) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
+        this.gearIconClickListener = listener;
     }
 
     @Override
@@ -32,7 +38,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Item item = items.get(position);
         holder.titleTextView.setText(item.getTitle());
         holder.backgroundImageView.setImageResource(item.getImageResource());
+
+        // Set click listener on gearImageView
+        holder.gearImageView.setOnClickListener(v -> {
+            if (gearIconClickListener != null) {
+                gearIconClickListener.onGearIconClick(position);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() { return items.size(); }

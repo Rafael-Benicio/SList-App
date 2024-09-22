@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -66,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ItemAdapter(this, itemList);
+        // Handle gear icon click here
+        adapter = new ItemAdapter(this, itemList, this::showConfigGroupModal);
+
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
@@ -84,12 +87,46 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    private Dialog getDialogBox(int layout){
+        // Create the dialog
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layout);
+        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
+        //Define dialog box behavior
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        return dialog;
+    }
+
+    private void showConfigGroupModal(int position) {
+        Item item = itemList.get(position);
+        final Dialog dialog = getDialogBox(R.layout.config_group_modal_layout);
+
+        // Find views in the dialog and set up any interactions
+        // For example:
+        // TextView titleTextView = dialog.findViewById(R.id.dialog_title);
+        // if (titleTextView != null) {
+        //     titleTextView.setText(item.getTitle());
+        // }
+
+        // Close button inside the dialog
+        ImageButton closeButton = dialog.findViewById(R.id.close_button);
+        closeButton.setOnClickListener(v -> dialog.dismiss());
+
+        // Show the dialog
+        dialog.show();
+    }
+
     private void showModalDialog() {
         // Create the dialog
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.new_group_modal_layout);
-        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
+        final Dialog dialog = getDialogBox(R.layout.new_group_modal_layout);
 
         // Find views in the dialog
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
@@ -106,23 +143,12 @@ public class MainActivity extends AppCompatActivity {
             pickImageLauncher.launch(Intent.createChooser(intent, "Select Picture"));
         });
 
-
         saveButton.setOnClickListener(v -> {
             String inputText = textInput.getText().toString();
             // TODO : Add the logic to save data
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
-
-        //Define dialog box behavior
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setGravity(Gravity.CENTER);
-            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        }
-
-        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         // Show the dialog
         dialog.show();

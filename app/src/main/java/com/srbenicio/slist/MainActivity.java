@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
     private List<Item> itemList;
-    private FloatingActionButton fabAdd;
-    private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
 

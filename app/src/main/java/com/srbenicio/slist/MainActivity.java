@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
     private List<Item> itemList;
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Configurar a Toolbar
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 if (cursor == null)  {break;}
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_NAME));
-                itemList.add(new Item(title, R.drawable.placeholder_image));
+                itemList.add(new Item(id ,title, R.drawable.placeholder_image));
             } while (cursor.moveToNext()); // Move to the next row
 
         // Configurar RecyclerView

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.srbenicio.slist.DatabaseCreator;
+import com.srbenicio.slist.creator.DatabaseCreator;
+import com.srbenicio.slist.creator.ItemTable;
 
 import java.util.Date;
 
@@ -25,39 +26,39 @@ public class DatabaseItemController {
 
         values = new ContentValues();
 
-        values.put(DatabaseCreator.I_GROUP_ID, group_id );
-        values.put(DatabaseCreator.I_TYPE_ID, type_id );
+        values.put(ItemTable.COLUMN_GROUP_ID, group_id );
+        values.put(ItemTable.COLUMN_TYPE_ID, type_id );
 
-        values.put(DatabaseCreator.I_NAME, name );
-        values.put(DatabaseCreator.I_DESC, desc );
+        values.put(ItemTable.COLUMN_NAME, name );
+        values.put(ItemTable.COLUMN_DESC, desc );
 
-        values.put(DatabaseCreator.I_CREATED_IN, new Date().toString());
-        values.put(DatabaseCreator.I_LAST_UPDATE, new Date().toString());
+        values.put(ItemTable.COLUMN_CREATED_IN, new Date().toString());
+        values.put(ItemTable.COLUMN_LAST_UPDATE, new Date().toString());
 
-        result = db.insert(DatabaseCreator.TABLE_I, null, values);
+        result = db.insert(ItemTable.TABLE_NAME, null, values);
         db.close();
 
         return  result != -1;
     }
 
     public boolean delete(int id){
-        String where = DatabaseCreator.I_ID + "=" + id;
+        String where = ItemTable.COLUMN_ID + "=" + id;
         db = database.getReadableDatabase();
-        int result=db.delete(DatabaseCreator.TABLE_I,where,null);
+        int result=db.delete(ItemTable.TABLE_NAME,where,null);
         db.close();
 
         return result != -1;
     }
 
     public boolean updateRecord(int id, int record){
-        String where = DatabaseCreator.I_ID + "=" + id;
+        String where = ItemTable.COLUMN_ID + "=" + id;
         db = database.getReadableDatabase();
 
         values = new ContentValues();
-        values.put(DatabaseCreator.I_RECORD, record);
-        values.put(DatabaseCreator.I_LAST_UPDATE, new Date().toString());
+        values.put(ItemTable.COLUMN_RECORD, record);
+        values.put(ItemTable.COLUMN_LAST_UPDATE, new Date().toString());
 
-        db.update(DatabaseCreator.TABLE_I,values,where,null);
+        db.update(ItemTable.TABLE_NAME,values,where,null);
         db.close();
 
         return result != -1;
@@ -67,18 +68,18 @@ public class DatabaseItemController {
     public Cursor loadData(int group_id){
         Cursor cursor;
         String[] fields = {
-                DatabaseCreator.I_ID,
-                DatabaseCreator.I_GROUP_ID,
-                DatabaseCreator.I_TYPE_ID,
-                DatabaseCreator.I_RECORD,
-                DatabaseCreator.I_NAME,
-                DatabaseCreator.I_DESC,
-                DatabaseCreator.I_CREATED_IN,
-                DatabaseCreator.I_LAST_UPDATE
+                ItemTable.COLUMN_ID,
+                ItemTable.COLUMN_GROUP_ID,
+                ItemTable.COLUMN_TYPE_ID,
+                ItemTable.COLUMN_RECORD,
+                ItemTable.COLUMN_NAME,
+                ItemTable.COLUMN_DESC,
+                ItemTable.COLUMN_CREATED_IN,
+                ItemTable.COLUMN_LAST_UPDATE
         };
 
         db = database.getReadableDatabase();
-        cursor=db.query(DatabaseCreator.TABLE_I, fields, DatabaseCreator.I_GROUP_ID+"="+group_id,null,null,null,null,null);
+        cursor=db.query(ItemTable.TABLE_NAME, fields, ItemTable.COLUMN_GROUP_ID+"="+group_id,null,null,null,null,null);
 
         if (cursor!=null){
             cursor.moveToFirst();

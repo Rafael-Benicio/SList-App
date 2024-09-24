@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
+import com.srbenicio.slist.creator.DatabaseCreator;
+import com.srbenicio.slist.creator.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
             do {
                 if (cursor == null)  {break;}
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_ID));
-                String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseCreator.IG_NAME));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
                 itemList.add(new Item(id ,title, R.drawable.placeholder_image));
             } while (cursor.moveToNext()); // Move to the next row
 

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.srbenicio.slist.DatabaseCreator;
+import com.srbenicio.slist.creator.DatabaseCreator;
+import com.srbenicio.slist.creator.GroupTable;
 
 import java.util.Date;
 
@@ -24,11 +25,11 @@ public class DatabaseGroupController {
         db = database.getWritableDatabase();
 
         values = new ContentValues();
-        values.put(DatabaseCreator.IG_NAME, name);
-        values.put(DatabaseCreator.IG_IMAGE, image);
-        values.put(DatabaseCreator.IG_CREATED_IN, new Date().toString());
+        values.put(GroupTable.COLUMN_NAME, name);
+        values.put(GroupTable.COLUMN_IMAGE, image);
+        values.put(GroupTable.COLUMN_CREATED_IN, new Date().toString());
 
-        result = db.insert(DatabaseCreator.TABLE_IG, null, values);
+        result = db.insert(GroupTable.TABLE_NAME, null, values);
         db.close();
 
         return  (result != -1)? "A group was created" : "Fail in create a new group" ;
@@ -36,10 +37,10 @@ public class DatabaseGroupController {
 
     public Cursor loadData(){
         Cursor cursor;
-        String[] fields = {DatabaseCreator.IG_ID, DatabaseCreator.IG_NAME};
+        String[] fields = {GroupTable.COLUMN_ID, GroupTable.COLUMN_NAME};
 
         db = database.getReadableDatabase();
-        cursor=db.query(DatabaseCreator.TABLE_IG, fields, null,null,null,null,null,null);
+        cursor=db.query(GroupTable.TABLE_NAME, fields, null,null,null,null,null,null);
 
         if (cursor!=null){
             cursor.moveToFirst();
@@ -51,9 +52,9 @@ public class DatabaseGroupController {
     }
 
     public boolean delete(int id){
-        String where = DatabaseCreator.IG_ID + "=" + id;
+        String where = GroupTable.COLUMN_ID + "=" + id;
         db = database.getReadableDatabase();
-        int result=db.delete(DatabaseCreator.TABLE_IG,where,null);
+        int result=db.delete(GroupTable.TABLE_NAME,where,null);
         db.close();
 
         return result != -1;

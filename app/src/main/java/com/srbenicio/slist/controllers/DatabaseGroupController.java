@@ -21,7 +21,7 @@ public class DatabaseGroupController {
         database = new DatabaseCreator(context);
     }
 
-    public String insert(String name, String image){
+    public boolean insert(String name, String image){
         db = database.getWritableDatabase();
 
         values = new ContentValues();
@@ -32,7 +32,7 @@ public class DatabaseGroupController {
         result = db.insert(GroupTable.TABLE_NAME, null, values);
         db.close();
 
-        return  (result != -1)? "A group was created" : "Fail in create a new group" ;
+        return  (result != -1);
     }
 
     public Cursor loadData(){

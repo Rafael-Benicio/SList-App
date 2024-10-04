@@ -183,7 +183,12 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             String inputText = textInput.getText().toString();
             // TODO : Add the logic to save data
-            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+            boolean result = crud.insert(inputText,"");
+
+            if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+
             dialog.dismiss();
         });
 

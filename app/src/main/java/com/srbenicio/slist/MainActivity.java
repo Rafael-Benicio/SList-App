@@ -56,15 +56,18 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         Cursor cursor = crud.loadData();
-        System.out.println(cursor);
         // Inicializar dados
         itemList = new ArrayList<>();
-            do {
-                if (cursor == null)  {break;}
+        do {
+            if (cursor == null)  {break;}
+            try {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
                 itemList.add(new Item(id ,title, R.drawable.placeholder_image));
-            } while (cursor.moveToNext()); // Move to the next row
+            }catch (Exception _e){
+                System.out.println("Value Exist?");
+            }
+        } while (cursor.moveToNext()); // Move to the next row
 
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recycler_view);

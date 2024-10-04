@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,12 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
-import com.srbenicio.slist.creator.DatabaseCreator;
 import com.srbenicio.slist.creator.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -54,28 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
-        Cursor cursor = crud.loadData();
-        // Inicializar dados
-        itemList = new ArrayList<>();
-        do {
-            if (cursor == null)  {break;}
-            try {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
-                String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
-                itemList.add(new Item(id ,title, R.drawable.placeholder_image));
-            }catch (Exception _e){
-                System.out.println("Value Exist?");
-            }
-        } while (cursor.moveToNext()); // Move to the next row
-
-        // Configurar RecyclerView
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // Handle gear icon click here
-        adapter = new ItemAdapter(this, itemList, this::showConfigGroupModal);
-
-        recyclerView.setAdapter(adapter);
+        loadItemsAndShow();
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(view -> showModalDialog());
@@ -90,6 +66,29 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void loadItemsAndShow(){
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        Cursor cursor = crud.loadData();
+        itemList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recycler_view);
+
+        do {
+            if (cursor == null)  {break;}
+            try {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
+                itemList.add(new Item(id ,title, R.drawable.placeholder_image));
+            }catch (Exception _e){
+                System.out.println("Value Exist?");
+            }
+        } while (cursor.moveToNext()); // Move to the next row
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ItemAdapter(this, itemList, this::showConfigGroupModal);
+
+        recyclerView.setAdapter(adapter);
     }
 
     private Dialog getDialogBox(int layout){
@@ -138,27 +137,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-
-        Optional<Integer> position = getItemPosition(id);
-
-        if (!position.isPresent()){
-            Toast.makeText(this, "Visual Error", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        itemList.remove(position.get());
-        adapter.notifyItemRemoved(position.get());  // Notify adapter of item removal
-    }
-
-    private Optional<Integer> getItemPosition(int id){
-        Optional<Integer> position = Optional.empty();
-        for (int i = 0; i < itemList.size(); i++) {
-            if (itemList.get(i).getId() == id) {
-                position = Optional.of(i);
-                break;
-            }
-        }
-        return position;
+        loadItemsAndShow();
     }
 
     private void showModalDialog() {
@@ -185,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
             // TODO : Add the logic to save data
             DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
             boolean result = crud.insert(inputText,"");
+
+            loadItemsAndShow();
 
             if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
             else Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();

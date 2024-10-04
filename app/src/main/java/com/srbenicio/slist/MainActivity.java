@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-
     private Dialog getDialogBox(int layout){
         // Create the dialog
         Dialog dialog = new Dialog(this);
@@ -124,17 +122,17 @@ public class MainActivity extends AppCompatActivity {
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
         Button deleteBtn = dialog.findViewById(R.id.delete_btn);
 
-
-
         titleTextView.setHint(item.getTitle());
         closeButton.setOnClickListener(v -> dialog.dismiss());
-        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId()));
+
+        // Pass the dialog instance to deleteGroup so it can be dismissed upon success
+        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId(), dialog));
 
         // Show the dialog
         dialog.show();
     }
 
-    private void deleteGroup(int id){
+    private void deleteGroup(int id, Dialog dialog){
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.delete(id);
 
@@ -144,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-        loadItemsAndShow();
+        dialog.dismiss();  // Close the modal dialog when deletion is successful
+        loadItemsAndShow();  // Refresh the RecyclerView to reflect the changes
     }
 
     private Optional<Integer> getItemPosition(int id){

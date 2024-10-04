@@ -12,6 +12,7 @@ public class Item {
     }
 
     // Getters
+    public int getId() { return id; }
     public String getTitle() { return title; }
     public int getImageResource() { return imageResource; }
 }

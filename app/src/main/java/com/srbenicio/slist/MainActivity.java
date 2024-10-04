@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -109,19 +110,25 @@ public class MainActivity extends AppCompatActivity {
         Item item = itemList.get(position);
         final Dialog dialog = getDialogBox(R.layout.config_group_modal_layout);
 
-        // Find views in the dialog and set up any interactions
-        // For example:
-        // TextView titleTextView = dialog.findViewById(R.id.dialog_title);
-        // if (titleTextView != null) {
-        //     titleTextView.setText(item.getTitle());
-        // }
-
-        // Close button inside the dialog
+        EditText titleTextView = dialog.findViewById(R.id.text_input);
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
+        Button deleteBtn = dialog.findViewById(R.id.delete_btn);
+
+
+
+        titleTextView.setHint(item.getTitle());
         closeButton.setOnClickListener(v -> dialog.dismiss());
+        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId()));
 
         // Show the dialog
         dialog.show();
+    }
+
+    private void deleteGroup(int id){
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        boolean result = crud.delete(id);
+        if (result) Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
     }
 
     private void showModalDialog() {

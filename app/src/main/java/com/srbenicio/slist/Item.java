@@ -3,16 +3,16 @@ package com.srbenicio.slist;
 public class Item {
     private int id;
     private String title;
-    private int imageResource;
+    private String imageUri;
 
-    public Item(int id,String title, int imageResource) {
+    public Item(int id, String title, String imageUri) {
         this.id = id;
         this.title = title;
-        this.imageResource = imageResource;
+        this.imageUri = imageUri;
     }
 
     // Getters
     public int getId() { return id; }
     public String getTitle() { return title; }
-    public int getImageResource() { return imageResource; }
+    public String getImageUri() { return imageUri; }
 }

@@ -3,11 +3,14 @@ package com.srbenicio.slist;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -37,7 +40,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
         Item item = items.get(position);
         holder.titleTextView.setText(item.getTitle());
-        holder.backgroundImageView.setImageResource(item.getImageResource());
+
+        if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
+            Glide.with(holder.backgroundImageView.getContext())
+                    .load(Uri.parse(item.getImageUri()))
+                    .placeholder(R.drawable.placeholder_image)  // Use placeholder if image loading fails
+                    .into(holder.backgroundImageView);
+        } else {
+            holder.backgroundImageView.setImageResource(R.drawable.placeholder_image);  // Default image if URI is empty
+        }
 
         // Set click listener on gearImageView
         holder.gearImageView.setOnClickListener(v -> {

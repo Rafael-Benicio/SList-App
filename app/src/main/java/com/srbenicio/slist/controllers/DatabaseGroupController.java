@@ -21,34 +21,32 @@ public class DatabaseGroupController {
         database = new DatabaseCreator(context);
     }
 
-    public boolean insert(String name, String image){
+    public boolean insert(String name, String imageUri) {
         db = database.getWritableDatabase();
 
         values = new ContentValues();
         values.put(GroupTable.COLUMN_NAME, name);
-        values.put(GroupTable.COLUMN_IMAGE, image);
+        values.put(GroupTable.COLUMN_IMAGE, imageUri);  // Store image URI as a String
         values.put(GroupTable.COLUMN_CREATED_IN, new Date().toString());
 
         result = db.insert(GroupTable.TABLE_NAME, null, values);
         db.close();
 
-        return  (result != -1);
+        return (result != -1);
     }
 
-    public Cursor loadData(){
+    public Cursor loadData() {
         Cursor cursor;
-        String[] fields = {GroupTable.COLUMN_ID, GroupTable.COLUMN_NAME};
+        String[] fields = {GroupTable.COLUMN_ID, GroupTable.COLUMN_NAME, GroupTable.COLUMN_IMAGE};
 
         db = database.getReadableDatabase();
-        cursor=db.query(GroupTable.TABLE_NAME, fields, null,null,null,null,null,null);
+        cursor = db.query(GroupTable.TABLE_NAME, fields, null, null, null, null, null, null);
 
-        if (cursor!=null){
+        if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        db.close();
-
-        return  cursor;
+        return cursor;
     }
 
     public boolean delete(int id){

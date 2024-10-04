@@ -69,28 +69,34 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void loadItemsAndShow(){
+    private void loadItemsAndShow() {
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         Cursor cursor = crud.loadData();
         itemList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
 
-        do {
-            if (cursor == null)  {break;}
-            try {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
-                String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
-                itemList.add(new Item(id ,title, R.drawable.placeholder_image));
-            }catch (Exception _e){
-                System.out.println("Value Exist?");
-            }
-        } while (cursor.moveToNext()); // Move to the next row
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                try {
+                    int id = cursor.getInt(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_ID));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
+                    String imageUri = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_IMAGE));
+
+                    itemList.add(new Item(id, title, imageUri));
+                } catch (Exception e) {
+                    System.out.println("Error loading item: " + e.getMessage());
+                }
+            } while (cursor.moveToNext());
+
+            cursor.close(); // Always close the cursor when done
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ItemAdapter(this, itemList, this::showConfigGroupModal);
 
         recyclerView.setAdapter(adapter);
     }
+
 
     private Dialog getDialogBox(int layout){
         // Create the dialog
@@ -153,16 +159,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showModalDialog() {
-        // Create the dialog
         final Dialog dialog = getDialogBox(R.layout.new_group_modal_layout);
+        imageUri = null;
 
-        // Find views in the dialog
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
         EditText textInput = dialog.findViewById(R.id.text_input);
         Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
         Button saveButton = dialog.findViewById(R.id.save_button);
 
-        // Set click listeners
         closeButton.setOnClickListener(v -> dialog.dismiss());
 
         chooseImageButton.setOnClickListener(v -> {
@@ -173,19 +177,20 @@ public class MainActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(v -> {
             String inputText = textInput.getText().toString();
-            // TODO : Add the logic to save data
+
+            String imageUriString = (imageUri != null) ? imageUri.toString() : "";
+
             DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
-            boolean result = crud.insert(inputText,"");
+            boolean result = crud.insert(inputText, imageUriString);
 
             loadItemsAndShow();
 
             if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
 
             dialog.dismiss();
         });
 
-        // Show the dialog
         dialog.show();
     }
 

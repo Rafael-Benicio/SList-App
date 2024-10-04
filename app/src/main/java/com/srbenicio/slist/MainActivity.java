@@ -33,6 +33,7 @@ import com.srbenicio.slist.creator.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -138,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
         loadItemsAndShow();
+    }
+
+    private Optional<Integer> getItemPosition(int id){
+        Optional<Integer> position = Optional.empty();
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getId() == id) {
+                position = Optional.of(i);
+                break;
+            }
+        }
+        return position;
     }
 
     private void showModalDialog() {

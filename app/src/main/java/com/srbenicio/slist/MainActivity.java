@@ -35,6 +35,7 @@ import com.srbenicio.slist.creator.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -127,8 +128,34 @@ public class MainActivity extends AppCompatActivity {
     private void deleteGroup(int id){
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.delete(id);
-        if (result) Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-        else Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+
+        if (!result){
+            Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+
+        Optional<Integer> position = getItemPosition(id);
+
+        if (!position.isPresent()){
+            Toast.makeText(this, "Visual Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        itemList.remove(position.get());
+        adapter.notifyItemRemoved(position.get());  // Notify adapter of item removal
+    }
+
+    private Optional<Integer> getItemPosition(int id){
+        Optional<Integer> position = Optional.empty();
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getId() == id) {
+                position = Optional.of(i);
+                break;
+            }
+        }
+        return position;
     }
 
     private void showModalDialog() {

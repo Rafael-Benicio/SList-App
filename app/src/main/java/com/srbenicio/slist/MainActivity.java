@@ -10,10 +10,12 @@ import android.graphics.drawable.ColorDrawable;
 
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Item> itemList;
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
+    private Dialog dialogActive = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         imageUri = result.getData().getData();
-                        // Handle the selected image URI as needed
+                        setImageDialogPreviw();
                         Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
+        dialogActive = dialog;
         return dialog;
     }
 
@@ -123,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
         Button deleteBtn = dialog.findViewById(R.id.delete_btn);
 
         titleTextView.setHint(item.getTitle());
-        closeButton.setOnClickListener(v -> dialog.dismiss());
+        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
-        // Pass the dialog instance to deleteGroup so it can be dismissed upon success
         deleteBtn.setOnClickListener(v -> deleteGroup(item.getId(), dialog));
 
         // Show the dialog
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-        dialog.dismiss();  // Close the modal dialog when deletion is successful
+        closeDialogActive(dialog);// Close the modal dialog when deletion is successful
         loadItemsAndShow();  // Refresh the RecyclerView to reflect the changes
     }
 
@@ -166,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
         Button saveButton = dialog.findViewById(R.id.save_button);
 
-        closeButton.setOnClickListener(v -> dialog.dismiss());
+        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
         chooseImageButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -176,21 +179,41 @@ public class MainActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(v -> {
             String inputText = textInput.getText().toString();
-
             String imageUriString = (imageUri != null) ? imageUri.toString() : "";
+
+            if (inputText.isEmpty()) return;
 
             DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
             boolean result = crud.insert(inputText, imageUriString);
 
             loadItemsAndShow();
 
-            if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
+            if (result) {
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
+            }
 
-            dialog.dismiss();
+            closeDialogActive(dialog);
         });
 
         dialog.show();
+    }
+
+    private void closeDialogActive(Dialog dialog){
+        dialogActive=null;
+        dialog.dismiss();
+    }
+
+    private void setImageDialogPreviw(){
+        if (dialogActive==null) return;
+
+        ImageView imagePreview = dialogActive.findViewById(R.id.image_preview);
+
+        if (imagePreview==null) return;
+
+        imagePreview.setImageURI(imageUri);
+        imagePreview.setVisibility(View.VISIBLE);
     }
 
     @Override

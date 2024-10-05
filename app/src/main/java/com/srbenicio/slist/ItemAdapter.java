@@ -3,6 +3,7 @@ package com.srbenicio.slist;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<Item> items;
     private LayoutInflater inflater;
     private OnGearIconClickListener gearIconClickListener;
+    private Context context;
 
     public interface OnGearIconClickListener {
         void onGearIconClick(int position);
@@ -28,6 +30,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
         this.gearIconClickListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -44,10 +47,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
             Glide.with(holder.backgroundImageView.getContext())
                     .load(Uri.parse(item.getImageUri()))
-                    .placeholder(R.drawable.placeholder_image)  // Use placeholder if image loading fails
+                    .placeholder(R.drawable.placeholder_image)
                     .into(holder.backgroundImageView);
         } else {
-            holder.backgroundImageView.setImageResource(R.drawable.placeholder_image);  // Default image if URI is empty
+            holder.backgroundImageView.setImageResource(R.drawable.placeholder_image);
         }
 
         // Set click listener on gearImageView
@@ -56,8 +59,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 gearIconClickListener.onGearIconClick(position);
             }
         });
-    }
 
+        // Set click listener on the entire card view
+        holder.itemView.setOnClickListener(v -> {
+            // Create an Intent to open the new activity
+            Intent intent = new Intent(context, GroupList.class);
+            // Pass data if needed
+            intent.putExtra("ITEM_ID", item.getId());
+            context.startActivity(intent);
+        });
+    }
 
     @Override
     public int getItemCount() { return items.size(); }

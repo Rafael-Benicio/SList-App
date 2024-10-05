@@ -66,6 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Intent intent = new Intent(context, GroupList.class);
             // Pass data if needed
             intent.putExtra("ITEM_ID", item.getId());
+            intent.putExtra("ITEM_TITLE", item.getTitle());
             context.startActivity(intent);
         });
     }

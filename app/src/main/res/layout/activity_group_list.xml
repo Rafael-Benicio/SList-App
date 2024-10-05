@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/base">
 
-    <TextView
-        android:id="@+id/detail_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Detail Activity"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-</RelativeLayout>
+    <!-- AppBarLayout with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/base_l"
+            app:contentInsetEnd="16dp"
+            app:contentInsetStart="16dp"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- FloatingActionButton -->
+    <include layout="@layout/plus_fab_button"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

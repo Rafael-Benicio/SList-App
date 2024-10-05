@@ -36,7 +36,7 @@ public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.View
 
     @Override
     public GroupItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_layout, parent, false);
+        View view = inflater.inflate(R.layout.group_item_layout, parent, false);
         return new ViewHolder(view);
     }
 

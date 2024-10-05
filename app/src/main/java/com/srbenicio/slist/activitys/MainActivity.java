@@ -30,8 +30,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.srbenicio.slist.Item;
-import com.srbenicio.slist.ItemAdapter;
+import com.srbenicio.slist.GroupItem;
+import com.srbenicio.slist.GroupItemAdapter;
 import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
 import com.srbenicio.slist.creators.GroupTable;
@@ -42,8 +42,8 @@ import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ItemAdapter adapter;
-    private List<Item> itemList;
+    private GroupItemAdapter adapter;
+    private List<GroupItem> itemList;
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
     private Dialog dialogActive = null;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     String title = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_NAME));
                     String imageUri = cursor.getString(cursor.getColumnIndexOrThrow(GroupTable.COLUMN_IMAGE));
 
-                    itemList.add(new Item(id, title, imageUri));
+                    itemList.add(new GroupItem(id, title, imageUri));
                 } catch (Exception e) {
                     System.out.println("Error loading item: " + e.getMessage());
                 }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ItemAdapter(this, itemList, this::showConfigGroupModal);
+        adapter = new GroupItemAdapter(this, itemList, this::showConfigGroupModal);
 
         recyclerView.setAdapter(adapter);
     }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showConfigGroupModal(int position) {
-        Item item = itemList.get(position);
+        GroupItem item = itemList.get(position);
         final Dialog dialog = getDialogBox(R.layout.config_group_modal_layout);
 
         EditText titleTextView = dialog.findViewById(R.id.text_input);

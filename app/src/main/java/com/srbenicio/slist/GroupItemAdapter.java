@@ -16,9 +16,9 @@ import com.srbenicio.slist.activitys.GroupList;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+public class GroupItemAdapter extends RecyclerView.Adapter<GroupItemAdapter.ViewHolder> {
 
-    private List<Item> items;
+    private List<GroupItem> items;
     private LayoutInflater inflater;
     private OnGearIconClickListener gearIconClickListener;
     private Context context;
@@ -27,7 +27,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         void onGearIconClick(int position);
     }
 
-    public ItemAdapter(Context context, List<Item> items, OnGearIconClickListener listener) {
+    public GroupItemAdapter(Context context, List<GroupItem> items, OnGearIconClickListener listener) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
         this.gearIconClickListener = listener;
@@ -35,14 +35,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GroupItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
-        Item item = items.get(position);
+    public void onBindViewHolder(GroupItemAdapter.ViewHolder holder, int position) {
+        GroupItem item = items.get(position);
         holder.titleTextView.setText(item.getTitle());
 
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {

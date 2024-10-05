@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.srbenicio.slist.creator.DatabaseCreator;
-import com.srbenicio.slist.creator.ItemTable;
+import com.srbenicio.slist.creators.DatabaseCreator;
+import com.srbenicio.slist.creators.ItemTable;
 
 import java.util.Date;
 

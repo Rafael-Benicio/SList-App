@@ -34,7 +34,7 @@ import com.srbenicio.slist.Item;
 import com.srbenicio.slist.ItemAdapter;
 import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
-import com.srbenicio.slist.creator.GroupTable;
+import com.srbenicio.slist.creators.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;

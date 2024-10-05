@@ -1,4 +1,4 @@
-package com.srbenicio.slist.creator;
+package com.srbenicio.slist.creators;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;

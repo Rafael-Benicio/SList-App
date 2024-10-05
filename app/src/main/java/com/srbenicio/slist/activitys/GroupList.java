@@ -1,11 +1,11 @@
-package com.srbenicio.slist;
+package com.srbenicio.slist.activitys;
 
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseItemController;
 
 

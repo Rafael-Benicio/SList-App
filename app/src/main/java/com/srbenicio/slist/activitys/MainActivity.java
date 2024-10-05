@@ -1,4 +1,4 @@
-package com.srbenicio.slist;
+package com.srbenicio.slist.activitys;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -30,6 +30,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.srbenicio.slist.Item;
+import com.srbenicio.slist.ItemAdapter;
+import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
 import com.srbenicio.slist.creator.GroupTable;
 

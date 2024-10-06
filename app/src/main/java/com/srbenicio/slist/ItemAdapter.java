@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.nameTextView.setText(item.getName());
         holder.descriptionTextView.setText(item.getDescription());
         holder.recordTextView.setText("Record: " + item.getRecord());
+        holder.nameTextView.setOnClickListener(v -> {
+            if (holder.bottomBox.getVisibility() == View.GONE) {
+                holder.bottomBox.setVisibility(View.VISIBLE);
+            } else {
+                holder.bottomBox.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     @Override
@@ -45,12 +54,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView nameTextView;
         TextView descriptionTextView;
         TextView recordTextView;
+        LinearLayout bottomBox;
 
         ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.item_name);
+            nameTextView = itemView.findViewById(R.id.item_text);
             descriptionTextView = itemView.findViewById(R.id.item_description);
-            recordTextView = itemView.findViewById(R.id.item_record);
+            recordTextView = itemView.findViewById(R.id.edit_quantity);
+            bottomBox = itemView.findViewById(R.id.bottom_box);
         }
     }
 

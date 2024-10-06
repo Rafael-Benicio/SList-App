@@ -2,31 +2,92 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    android:elevation="4dp">
 
-    <TextView
-        android:id="@+id/item_name"
-        android:layout_width="wrap_content"
+    <!-- Container for Main Text and Buttons -->
+    <LinearLayout
+        android:id="@+id/top_section"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Item Name"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/item_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_name"
-        android:text="Description"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
+        <!-- Main Text Area -->
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp"
+            android:text="Item Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/item_record"
-        android:layout_width="wrap_content"
+        <!-- Minus Button -->
+        <ImageButton
+            android:id="@+id/btn_decrement"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_minus"
+            android:contentDescription="Decrement"
+            android:padding="10dp" />
+
+        <!-- EditText for Number -->
+        <EditText
+            android:id="@+id/edit_quantity"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="1"
+            android:maxLength="4"
+            android:digits="0123456789"
+            android:background="@android:color/transparent" />
+
+        <!-- Plus Button -->
+        <ImageButton
+            android:id="@+id/btn_increment"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Increment"
+            android:src="@drawable/ic_add"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <!-- Bottom Box (Initially Hidden) -->
+    <LinearLayout
+        android:id="@+id/bottom_box"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_description"
-        android:text="Record"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
+        android:layout_below="@id/top_section"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Description Text -->
+        <TextView
+            android:id="@+id/item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description goes here"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Creation and Update Info -->
+        <TextView
+            android:id="@+id/item_creation_update_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created: 2023-10-01 | Updated: 2023-10-05"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+
 </RelativeLayout>

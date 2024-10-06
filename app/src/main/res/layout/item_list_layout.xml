@@ -79,7 +79,7 @@
             android:id="@+id/item_created_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Created: "
+            android:text="Created: "
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
@@ -87,7 +87,7 @@
             android:id="@+id/item_updated_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Updated: "
+            android:text="Updated: "
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 

@@ -34,7 +34,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         ItemList item = items.get(position);
         holder.nameTextView.setText(item.getName());
         holder.descriptionTextView.setText(item.getDescription());
-        holder.recordTextView.setText("Record: " + item.getRecord());
+        holder.recordTextView.setText(Integer.toString(item.getRecord()));
+        holder.itemCreatedInfo.setText("Created: "+item.getCreatedIn());
+        holder.itemUpdatedInfo.setText("Updated: "+item.getLastUpdate());
         holder.nameTextView.setOnClickListener(v -> {
             if (holder.bottomBox.getVisibility() == View.GONE) {
                 holder.bottomBox.setVisibility(View.VISIBLE);
@@ -55,6 +57,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView descriptionTextView;
         TextView recordTextView;
         LinearLayout bottomBox;
+        TextView itemCreatedInfo;
+        TextView itemUpdatedInfo;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +66,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             descriptionTextView = itemView.findViewById(R.id.item_description);
             recordTextView = itemView.findViewById(R.id.edit_quantity);
             bottomBox = itemView.findViewById(R.id.bottom_box);
+            itemCreatedInfo = itemView.findViewById(R.id.item_created_info);
+            itemUpdatedInfo = itemView.findViewById(R.id.item_updated_info);
         }
     }
 

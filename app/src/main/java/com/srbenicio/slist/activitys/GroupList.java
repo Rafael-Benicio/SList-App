@@ -49,7 +49,7 @@ public class GroupList extends AppCompatActivity {
 
     private void createNewItem(){
         DatabaseItemController crud = new DatabaseItemController(getBaseContext());
-        boolean result = crud.insert("Meu", "Minha desc", 0, groupId);
+        boolean result = crud.insert("Kochira Katsushikaku Kameari Kouenmae Hashutsujo", "Minha desc", 0, groupId);
 
         if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         else Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();

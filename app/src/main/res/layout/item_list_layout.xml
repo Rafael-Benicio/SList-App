@@ -76,10 +76,18 @@
 
         <!-- Description Text -->
         <TextView
-            android:id="@+id/item_creation_update_info"
+            android:id="@+id/item_created_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Created: 2023-10-01 | Updated: 2023-10-05"
+            android:text="Created: "
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_updated_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Updated: "
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 

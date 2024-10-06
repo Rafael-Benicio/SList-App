@@ -34,6 +34,10 @@ public class ItemList {
         return record;
     }
 
+    public void setRecord(int newRecord) {
+        record=newRecord;
+    }
+
     public String getCreatedIn() {
         return createdIn;
     }

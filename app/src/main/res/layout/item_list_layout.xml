@@ -72,6 +72,7 @@
         android:layout_below="@id/top_section"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
+        android:padding="8dp"
         android:visibility="gone">
 
         <!-- Description Text -->

@@ -1,7 +1,18 @@
 package com.srbenicio.slist.activitys;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.ItemAdapter;
 import com.srbenicio.slist.ItemList;
 import com.srbenicio.slist.R;
+import com.srbenicio.slist.controllers.DatabaseGroupController;
 import com.srbenicio.slist.controllers.DatabaseItemController;
 import com.srbenicio.slist.creators.ItemTable;
 
@@ -25,6 +37,7 @@ public class GroupList extends AppCompatActivity {
     private int groupId;
     private String itemTitle;
     private List<ItemList> itemList;
+    private Dialog dialogActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +55,49 @@ public class GroupList extends AppCompatActivity {
         my_toolbar.setTitle(itemTitle);
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
-        fab.setOnClickListener(view -> createNewItem());
+        fab.setOnClickListener(view -> showModalDialog());
 
         loadItemsAndShow(groupId);
+    }
+
+    private void closeDialogActive(Dialog dialog){
+        dialogActive=null;
+        dialog.dismiss();
+    }
+
+    private void showModalDialog() {
+        final Dialog dialog = getDialogBox(R.layout.new_item_list_modal);
+
+        EditText textInput = dialog.findViewById(R.id.text_input);
+        EditText textInputDesc = dialog.findViewById(R.id.desc_text_input);
+        Button saveButton = dialog.findViewById(R.id.save_button);
+        ImageButton closeButton = dialog.findViewById(R.id.close_button);
+        textInputDesc.setMovementMethod(new ScrollingMovementMethod());
+
+        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+
+        saveButton.setOnClickListener(v -> {
+            String inputText = textInput.getText().toString();
+            String inputTextDesc = textInputDesc.getText().toString();
+
+
+            if (inputText.isEmpty()) return;
+
+            DatabaseItemController crud = new DatabaseItemController(getBaseContext());
+            boolean result = crud.insert(inputText, inputTextDesc,0,groupId);
+
+            loadItemsAndShow(groupId);
+
+            if (result) {
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
+            }
+
+            closeDialogActive(dialog);
+        });
+
+        dialog.show();
     }
 
     private void createNewItem(){
@@ -55,6 +108,25 @@ public class GroupList extends AppCompatActivity {
         else Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
 
         loadItemsAndShow(groupId);
+    }
+
+    private Dialog getDialogBox(int layout){
+        // Create the dialog
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layout);
+        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
+        //Define dialog box behavior
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        dialogActive = dialog;
+        return dialog;
     }
 
     private void loadItemsAndShow(int groupId) {

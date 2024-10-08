@@ -1,4 +1,4 @@
-package com.srbenicio.slist;
+package com.srbenicio.slist.adapters;
 
 import android.content.Context;
 import android.text.Editable;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.srbenicio.slist.ItemList;
+import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseItemController;
 
 import java.util.List;

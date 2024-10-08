@@ -1,4 +1,4 @@
-package com.srbenicio.slist;
+package com.srbenicio.slist.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.srbenicio.slist.GroupItem;
+import com.srbenicio.slist.R;
 import com.srbenicio.slist.activitys.GroupList;
 
 import java.util.List;

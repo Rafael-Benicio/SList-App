@@ -31,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.GroupItem;
-import com.srbenicio.slist.GroupItemAdapter;
+import com.srbenicio.slist.adapters.GroupItemAdapter;
 import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseGroupController;
 import com.srbenicio.slist.creators.GroupTable;

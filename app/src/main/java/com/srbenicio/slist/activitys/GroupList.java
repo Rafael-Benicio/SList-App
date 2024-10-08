@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.srbenicio.slist.ItemAdapter;
+import com.srbenicio.slist.adapters.ItemAdapter;
 import com.srbenicio.slist.ItemList;
 import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseItemController;

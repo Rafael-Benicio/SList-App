@@ -52,13 +52,13 @@ public class DatabaseItemController {
 
     public boolean updateRecord(int id, int record){
         String where = ItemTable.COLUMN_ID + "=" + id;
-        db = database.getReadableDatabase();
+        db = database.getWritableDatabase(); // Use getWritableDatabase()
 
-        values = new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(ItemTable.COLUMN_RECORD, record);
         values.put(ItemTable.COLUMN_LAST_UPDATE, new Date().toString());
 
-        db.update(ItemTable.TABLE_NAME,values,where,null);
+        int result = db.update(ItemTable.TABLE_NAME, values, where, null);
         db.close();
 
         return result != -1;

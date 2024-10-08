@@ -67,7 +67,13 @@ public class GroupList extends AppCompatActivity {
         });
 
         FloatingActionButton addItemButton = findViewById(R.id.fab_add);
-        addItemButton.setOnClickListener(view -> showModalToCreateItem());
+        addItemButton.setOnClickListener(view -> {
+            if (this.isDeleteMode) {
+                setDeleteMode(false);
+                return;
+            };
+            showModalToCreateItem();
+        });
 
         loadItemsFromDatabaseAndShow(groupId);
     }

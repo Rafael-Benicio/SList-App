@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@android:color/white"
+    android:background="@drawable/rounded_corner_background"
     android:elevation="4dp"
     android:paddingLeft="8dp"
     android:paddingTop="16dp"
@@ -23,7 +23,8 @@
             android:id="@+id/btn_trash"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@android:color/transparent"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/btn_negate"
             android:contentDescription="Delete"
             android:padding="10dp"
             android:src="@drawable/ic_trash"
@@ -43,8 +44,8 @@
         <!-- Minus Button -->
         <ImageButton
             android:id="@+id/btn_decrement"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:contentDescription="Decrement"
@@ -67,8 +68,8 @@
         <!-- Plus Button -->
         <ImageButton
             android:id="@+id/btn_increment"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@android:color/transparent"
             android:contentDescription="Increment"
             android:padding="10dp"

@@ -6,12 +6,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -48,9 +50,13 @@ public class GroupList extends AppCompatActivity {
         if (groupId==-1){finish();}
         if (itemTitle.isEmpty()){itemTitle="SList";}
 
-
         Toolbar my_toolbar = findViewById(R.id.toolbar);
-        my_toolbar.setTitle(itemTitle);
+
+        TextView text_toolbar = my_toolbar.findViewById(R.id.toolbar_title);
+        text_toolbar.setText(itemTitle);
+
+        ImageButton btn_toolbar = my_toolbar.findViewById(R.id.toolbar_menu_button);
+        btn_toolbar.setOnClickListener(view -> showModalDialog());
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(view -> showModalDialog());
@@ -96,16 +102,6 @@ public class GroupList extends AppCompatActivity {
         });
 
         dialog.show();
-    }
-
-    private void createNewItem(){
-        DatabaseItemController crud = new DatabaseItemController(getBaseContext());
-        boolean result = crud.insert("Kochira Katsushikaku Kameari Kouenmae Hashutsujo", "Minha desc", 0, groupId);
-
-        if (result) Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-        else Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
-
-        loadItemsAndShow(groupId);
     }
 
     private Dialog getDialogBox(int layout){

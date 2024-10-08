@@ -28,6 +28,8 @@ import com.srbenicio.slist.controllers.DatabaseItemController;
 import com.srbenicio.slist.creators.ItemTable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GroupList extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class GroupList extends AppCompatActivity {
     private int groupId;
     private String itemTitle;
     private List<ItemList> itemList;
+    private enum SORT_BY {NAME,RECORD};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +107,18 @@ public class GroupList extends AppCompatActivity {
     private void showModalConfig(){
         final Dialog dialog = getDialogBox(R.layout.modal_config_item_list_layout);
 
+        ImageButton btnNameUp = dialog.findViewById(R.id.btn_name_up);
+        ImageButton btnNameDown = dialog.findViewById(R.id.btn_name_down);
+        ImageButton btnRecordUp = dialog.findViewById(R.id.btn_value_up);
+        ImageButton btnRecordDown = dialog.findViewById(R.id.btn_value_down);
+
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
+
+        btnNameUp.setOnClickListener(v -> sortItemList(SORT_BY.NAME, true));
+        btnNameDown.setOnClickListener(v -> sortItemList(SORT_BY.NAME, false));
+
+        btnRecordUp.setOnClickListener(v -> sortItemList(SORT_BY.RECORD,false));
+        btnRecordDown.setOnClickListener(v -> sortItemList(SORT_BY.RECORD,true));
 
         closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
@@ -157,5 +171,44 @@ public class GroupList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ItemAdapter(this, itemList);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void sortItemList(SORT_BY sortBy, boolean ascending) {
+        if (sortBy == SORT_BY.NAME) {
+            if (ascending) {
+                Collections.sort(itemList, new Comparator<ItemList>() {
+                    @Override
+                    public int compare(ItemList o1, ItemList o2) {
+                        return o1.getName().compareToIgnoreCase(o2.getName());
+                    }
+                });
+            } else {
+                Collections.sort(itemList, new Comparator<ItemList>() {
+                    @Override
+                    public int compare(ItemList o1, ItemList o2) {
+                        return o2.getName().compareToIgnoreCase(o1.getName());
+                    }
+                });
+            }
+        } else if (sortBy == SORT_BY.RECORD) {
+            if (ascending) {
+                Collections.sort(itemList, new Comparator<ItemList>() {
+                    @Override
+                    public int compare(ItemList o1, ItemList o2) {
+                        return Integer.compare(o1.getRecord(), o2.getRecord());
+                    }
+                });
+            } else {
+                Collections.sort(itemList, new Comparator<ItemList>() {
+                    @Override
+                    public int compare(ItemList o1, ItemList o2) {
+                        return Integer.compare(o2.getRecord(), o1.getRecord());
+                    }
+                });
+            }
+        }
+
+        // Notify the adapter about data changes
+        adapter.notifyDataSetChanged();
     }
 }

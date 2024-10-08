@@ -35,6 +35,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- FloatingActionButton -->
-    <include layout="@layout/plus_fab_button"/>
+    <include layout="@layout/btn_plus_fab"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

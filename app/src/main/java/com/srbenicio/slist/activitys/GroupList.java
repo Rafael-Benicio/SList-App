@@ -1,7 +1,6 @@
 package com.srbenicio.slist.activitys;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.ItemAdapter;
 import com.srbenicio.slist.ItemList;
 import com.srbenicio.slist.R;
-import com.srbenicio.slist.controllers.DatabaseGroupController;
 import com.srbenicio.slist.controllers.DatabaseItemController;
 import com.srbenicio.slist.creators.ItemTable;
 
@@ -66,7 +64,7 @@ public class GroupList extends AppCompatActivity {
     }
 
     private void showModalDialog() {
-        final Dialog dialog = getDialogBox(R.layout.new_item_list_modal);
+        final Dialog dialog = getDialogBox(R.layout.modal_new_item_list);
 
         EditText textInput = dialog.findViewById(R.id.text_input);
         EditText textInputDesc = dialog.findViewById(R.id.desc_text_input);

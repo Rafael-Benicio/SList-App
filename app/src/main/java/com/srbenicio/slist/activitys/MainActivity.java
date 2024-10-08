@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showConfigGroupModal(int position) {
         GroupItem item = itemList.get(position);
-        final Dialog dialog = getDialogBox(R.layout.config_group_modal_layout);
+        final Dialog dialog = getDialogBox(R.layout.modal_config_group_layout);
 
         EditText titleTextView = dialog.findViewById(R.id.text_input);
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showModalDialog() {
-        final Dialog dialog = getDialogBox(R.layout.new_group_modal_layout);
+        final Dialog dialog = getDialogBox(R.layout.modal_new_group_layout);
         imageUri = null;
 
         ImageButton closeButton = dialog.findViewById(R.id.close_button);

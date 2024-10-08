@@ -56,7 +56,7 @@ public class GroupList extends AppCompatActivity {
         text_toolbar.setText(itemTitle);
 
         ImageButton btn_toolbar = my_toolbar.findViewById(R.id.toolbar_menu_button);
-        btn_toolbar.setOnClickListener(view -> showModalDialog());
+        btn_toolbar.setOnClickListener(view -> showModalConfig());
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(view -> showModalDialog());
@@ -100,6 +100,16 @@ public class GroupList extends AppCompatActivity {
 
             closeDialogActive(dialog);
         });
+
+        dialog.show();
+    }
+
+    private void showModalConfig(){
+        final Dialog dialog = getDialogBox(R.layout.modal_config_item_list_layout);
+
+        ImageButton closeButton = dialog.findViewById(R.id.close_button);
+
+        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
         dialog.show();
     }

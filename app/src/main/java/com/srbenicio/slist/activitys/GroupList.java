@@ -39,6 +39,7 @@ public class GroupList extends AppCompatActivity {
     private String itemTitle;
     private List<ItemList> itemList;
     private enum SORT_BY {NAME,RECORD};
+    private boolean isDeleteMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,13 @@ public class GroupList extends AppCompatActivity {
         text_toolbar.setText(itemTitle);
 
         ImageButton btn_toolbar = my_toolbar.findViewById(R.id.toolbar_menu_button);
-        btn_toolbar.setOnClickListener(view -> showModalConfig());
+        btn_toolbar.setOnClickListener(view -> {
+            if (this.isDeleteMode) {
+                setDeleteMode(false);
+                return;
+            };
+            showModalConfig();
+        });
 
         FloatingActionButton addItemButton = findViewById(R.id.fab_add);
         addItemButton.setOnClickListener(view -> showModalToCreateItem());
@@ -67,6 +74,11 @@ public class GroupList extends AppCompatActivity {
 
     private void closeDialogActive(Dialog dialog){
         dialog.dismiss();
+    }
+
+    private void setDeleteMode(boolean deleteMode) {
+        this.isDeleteMode = deleteMode;
+        adapter.setDeleteMode(deleteMode);
     }
 
     private void showModalToCreateItem() {
@@ -107,6 +119,8 @@ public class GroupList extends AppCompatActivity {
     private void showModalConfig(){
         final Dialog dialog = getDialogBox(R.layout.modal_config_item_list_layout);
 
+        Button deleteButton = dialog.findViewById(R.id.delete_btn);
+
         ImageButton btnNameUp = dialog.findViewById(R.id.btn_name_up);
         ImageButton btnNameDown = dialog.findViewById(R.id.btn_name_down);
         ImageButton btnRecordUp = dialog.findViewById(R.id.btn_value_up);
@@ -121,6 +135,11 @@ public class GroupList extends AppCompatActivity {
         btnRecordDown.setOnClickListener(v -> sortItemList(SORT_BY.RECORD,true));
 
         closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+
+        deleteButton.setOnClickListener(v -> {
+            setDeleteMode(true);
+            closeDialogActive(dialog);
+        });
 
         dialog.show();
     }
@@ -170,6 +189,7 @@ public class GroupList extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ItemAdapter(this, itemList);
+        adapter.setDeleteMode(isDeleteMode); // Set initial delete mode
         recyclerView.setAdapter(adapter);
     }
 

@@ -18,6 +18,17 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <!-- Trash Button (Initially Hidden) -->
+        <ImageButton
+            android:id="@+id/btn_trash"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Delete"
+            android:padding="10dp"
+            android:src="@drawable/ic_trash"
+            android:visibility="gone" />
+
         <!-- Main Text Area -->
         <TextView
             android:id="@+id/item_text"

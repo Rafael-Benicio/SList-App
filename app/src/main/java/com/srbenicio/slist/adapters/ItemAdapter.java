@@ -24,6 +24,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<ItemList> items;
     private LayoutInflater inflater;
     private DatabaseItemController dbController;
+    private boolean isDeleteMode = false;
 
     public ItemAdapter(Context context, List<ItemList> items) {
         this.inflater = LayoutInflater.from(context);
@@ -37,6 +38,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    public void setDeleteMode(boolean isDeleteMode) {
+        this.isDeleteMode = isDeleteMode;
+        notifyDataSetChanged(); // Refresh the list
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ItemList item = items.get(position);
@@ -44,6 +50,29 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         if (holder.recordTextWatcher != null) {
             holder.recordTextView.removeTextChangedListener(holder.recordTextWatcher);
         }
+
+        if (isDeleteMode) {
+            holder.trashButton.setVisibility(View.VISIBLE);
+            holder.incrementButton.setVisibility(View.GONE);
+            holder.decrementButton.setVisibility(View.GONE);
+            holder.recordTextView.setEnabled(false); // Make non-editable
+        } else {
+            holder.trashButton.setVisibility(View.GONE);
+            holder.incrementButton.setVisibility(View.VISIBLE);
+            holder.decrementButton.setVisibility(View.VISIBLE);
+            holder.recordTextView.setEnabled(true); // Make editable
+        }
+
+        holder.trashButton.setOnClickListener(v -> {
+            // Handle item deletion
+            int itemId = item.getId();
+            // Delete from database
+            dbController.delete(itemId);
+            // Remove from list and notify adapter
+            items.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, items.size());
+        });
 
         holder.nameTextView.setText(item.getName());
         holder.descriptionTextView.setText(item.getDescription());
@@ -139,6 +168,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView itemUpdatedInfo;
         ImageButton incrementButton;
         ImageButton decrementButton;
+        ImageButton trashButton;
         TextWatcher recordTextWatcher;
         boolean isUpdating = false; // Flag to prevent infinite loops
 
@@ -152,6 +182,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             itemUpdatedInfo = itemView.findViewById(R.id.item_updated_info);
             incrementButton = itemView.findViewById(R.id.btn_increment);
             decrementButton = itemView.findViewById(R.id.btn_decrement);
+            trashButton = itemView.findViewById(R.id.btn_trash); // Initialize here
         }
     }
 

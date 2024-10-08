@@ -37,7 +37,6 @@ public class GroupList extends AppCompatActivity {
     private int groupId;
     private String itemTitle;
     private List<ItemList> itemList;
-    private Dialog dialogActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +57,17 @@ public class GroupList extends AppCompatActivity {
         ImageButton btn_toolbar = my_toolbar.findViewById(R.id.toolbar_menu_button);
         btn_toolbar.setOnClickListener(view -> showModalConfig());
 
-        FloatingActionButton fab = findViewById(R.id.fab_add);
-        fab.setOnClickListener(view -> showModalDialog());
+        FloatingActionButton addItemButton = findViewById(R.id.fab_add);
+        addItemButton.setOnClickListener(view -> showModalToCreateItem());
 
-        loadItemsAndShow(groupId);
+        loadItemsFromDatabaseAndShow(groupId);
     }
 
     private void closeDialogActive(Dialog dialog){
-        dialogActive=null;
         dialog.dismiss();
     }
 
-    private void showModalDialog() {
+    private void showModalToCreateItem() {
         final Dialog dialog = getDialogBox(R.layout.modal_new_item_list);
 
         EditText textInput = dialog.findViewById(R.id.text_input);
@@ -90,7 +88,7 @@ public class GroupList extends AppCompatActivity {
             DatabaseItemController crud = new DatabaseItemController(getBaseContext());
             boolean result = crud.insert(inputText, inputTextDesc,0,groupId);
 
-            loadItemsAndShow(groupId);
+            loadItemsFromDatabaseAndShow(groupId);
 
             if (result) {
                 Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
@@ -119,7 +117,7 @@ public class GroupList extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layout);
-        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
+        dialog.setCancelable(true); // Prevent closing the dialog by tapping outside
         //Define dialog box behavior
         if (dialog.getWindow() != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -129,11 +127,10 @@ public class GroupList extends AppCompatActivity {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        dialogActive = dialog;
         return dialog;
     }
 
-    private void loadItemsAndShow(int groupId) {
+    private void loadItemsFromDatabaseAndShow(int groupId) {
         DatabaseItemController crud = new DatabaseItemController(getBaseContext());
         Cursor cursor = crud.loadData(groupId);
         itemList = new ArrayList<>();

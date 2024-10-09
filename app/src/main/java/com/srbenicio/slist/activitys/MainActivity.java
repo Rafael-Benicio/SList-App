@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.srbenicio.slist.DatabaseExporter;
 import com.srbenicio.slist.GroupItem;
 import com.srbenicio.slist.adapters.GroupItemAdapter;
 import com.srbenicio.slist.R;
@@ -56,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         // Configurar a Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ImageButton exportButton = toolbar.findViewById(R.id.toolbar_menu_button);
+        exportButton.setOnClickListener(view -> {
+            DatabaseExporter.exportDatabase(this);
+        });
 
         loadItemsAndShow();
 

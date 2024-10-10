@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class DatabaseCreator extends SQLiteOpenHelper {
 
     private Context context;
-    private static final String DATABASE_NAME="SList.db";
+    public static final String DATABASE_NAME="SList.db";
     private static final int DATABASE_VERSION=1;
 
     public DatabaseCreator(@Nullable Context context) {

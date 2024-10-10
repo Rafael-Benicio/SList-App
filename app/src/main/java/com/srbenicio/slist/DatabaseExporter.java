@@ -1,7 +1,10 @@
 package com.srbenicio.slist;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
+
+import com.srbenicio.slist.creators.DatabaseCreator;
 
 import java.io.*;
 
@@ -9,12 +12,17 @@ public class DatabaseExporter {
 
     public static void exportDatabase(Context context) {
         // Get the path to the database
-        File dbFile = context.getDatabasePath("SList.db");
+        File dbFile = context.getDatabasePath(DatabaseCreator.DATABASE_NAME);
+
+        DatabaseCreator dbHelper = new DatabaseCreator(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close(); // Close immediately after to flush changes
+
 
         // Get the app's external files directory
         File exportDir = context.getExternalFilesDir(null);
         if (exportDir != null) {
-            File backupFile = new File(exportDir, "SList_backup.db");
+            File backupFile = new File(exportDir, "SList_backup_1.db");
 
             try {
                 copyFile(dbFile, backupFile);

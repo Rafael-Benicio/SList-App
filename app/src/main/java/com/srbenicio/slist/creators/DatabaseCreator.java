@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 public class DatabaseCreator extends SQLiteOpenHelper {
 
     private Context context;
+    private static SQLiteDatabase database;
     public static final String DATABASE_NAME="SList.db";
     private static final int DATABASE_VERSION=1;
 
@@ -23,6 +24,7 @@ public class DatabaseCreator extends SQLiteOpenHelper {
         db.execSQL(ItemTypeTable.CREATE_TABLE);
         db.execSQL(ItemTable.CREATE_TABLE);
         ItemTypeTable.insertInitialData(db);
+        database=db;
     }
 
     @Override
@@ -32,5 +34,13 @@ public class DatabaseCreator extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ItemTable.TABLE_NAME);
         onCreate(db);
     }
+
+    public void closeDatabase() {
+        if (database != null && database.isOpen()) {
+            database.close();
+        }
+    }
+
+    public SQLiteDatabase getDatabase() { return database;}
 
 }

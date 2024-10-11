@@ -7,33 +7,34 @@ import android.widget.Toast;
 import com.srbenicio.slist.creators.DatabaseCreator;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 
 public class DatabaseExporter {
 
-    public static void exportDatabase(Context context) {
-        // Get the path to the database
-        File dbFile = context.getDatabasePath(DatabaseCreator.DATABASE_NAME);
-
+    public static boolean exportDatabase(Context context) {
+        // Try grant that is closes
         DatabaseCreator dbHelper = DatabaseCreator.getInstance(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.close(); // Close immediately after to flush changes
+        db.close();
 
-
-        // Get the app's external files directory
+        File currentDB = context.getDatabasePath(DatabaseCreator.DATABASE_NAME);
         File exportDir = context.getExternalFilesDir(null);
-        if (exportDir != null) {
-            File backupFile = new File(exportDir, "SList_backup_1.db");
 
-            try {
-                copyFile(dbFile, backupFile);
-                Toast.makeText(context, "Database exported successfully to:\n" + backupFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(context, "Failed to export database:\n" + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(context, "External storage not available", Toast.LENGTH_LONG).show();
+        if (!currentDB.exists()) {return false;}
+
+        try {
+            File backupDB = new File(exportDir, "SList_backup.db");
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     private static void copyFile(File src, File dst) throws IOException {

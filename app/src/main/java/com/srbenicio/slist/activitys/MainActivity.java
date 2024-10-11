@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton exportButton = toolbar.findViewById(R.id.toolbar_menu_button);
         exportButton.setOnClickListener(view -> {
-            DatabaseExporter.exportDatabase(this);
+            boolean res = DatabaseExporter.exportDatabase(this);
+            Toast.makeText(
+                    this,
+                    (res)?"SUCCESS in backup process":"FAIL in backup process",
+                    Toast.LENGTH_SHORT).show();
         });
 
         loadItemsAndShow();

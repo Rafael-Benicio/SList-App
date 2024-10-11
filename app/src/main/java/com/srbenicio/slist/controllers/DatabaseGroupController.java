@@ -18,7 +18,7 @@ public class DatabaseGroupController {
     long result;
 
     public DatabaseGroupController(Context context){
-        database = new DatabaseCreator(context);
+        database = DatabaseCreator.getInstance(context);
     }
 
     public boolean insert(String name, String imageUri) {

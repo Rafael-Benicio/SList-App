@@ -14,7 +14,7 @@ public class DatabaseExporter {
         // Get the path to the database
         File dbFile = context.getDatabasePath(DatabaseCreator.DATABASE_NAME);
 
-        DatabaseCreator dbHelper = new DatabaseCreator(context);
+        DatabaseCreator dbHelper = DatabaseCreator.getInstance(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close(); // Close immediately after to flush changes
 

@@ -18,7 +18,7 @@ public class DatabaseItemController {
     long result;
 
     public DatabaseItemController(Context context){
-        database = new DatabaseCreator(context);
+        database = DatabaseCreator.getInstance(context);
     }
 
     public boolean insert(String name, String desc, int type_id, int group_id){

@@ -59,13 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ImageButton exportButton = toolbar.findViewById(R.id.toolbar_menu_button);
-        exportButton.setOnClickListener(view -> {
-            boolean res = DatabaseExporter.exportDatabase(this);
-            Toast.makeText(
-                    this,
-                    (res)?"SUCCESS in backup process":"FAIL in backup process",
-                    Toast.LENGTH_SHORT).show();
-        });
+        exportButton.setOnClickListener(view -> showModalMainConfig());
 
         loadItemsAndShow();
 
@@ -207,6 +201,34 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
             }
 
+            closeDialogActive(dialog);
+        });
+
+        dialog.show();
+    }
+
+    private void showModalMainConfig() {
+        final Dialog dialog = getDialogBox(R.layout.modal_config_main);
+
+        ImageButton closeButton = dialog.findViewById(R.id.close_button);
+
+        Button exportBtn = dialog.findViewById(R.id.btn_export);
+        Button importBtn = dialog.findViewById(R.id.btn_import);
+
+        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+
+        exportBtn.setOnClickListener(v -> {
+            boolean res= DatabaseExporter.exportDatabase(this);
+             Toast.makeText(
+                        this,
+                        (res)?"SUCCESS in backup process":"FAIL in backup process",
+                        Toast.LENGTH_SHORT).show();
+             closeDialogActive(dialog);
+
+        });
+        importBtn.setOnClickListener(v -> {
+            DatabaseExporter.importDatabase(this);
+            loadItemsAndShow();
             closeDialogActive(dialog);
         });
 

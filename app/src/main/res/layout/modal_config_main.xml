@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/modal_card"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Row: Big Text and Close Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Big Text -->
+            <TextView
+                android:id="@+id/big_text_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Export"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Close Button -->
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Click to export you data to you device"
+                android:src="@drawable/ic_close" />
+
+        </LinearLayout>
+
+        <!-- Small Text -->
+        <TextView
+            android:id="@+id/small_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Click to export you data to you device"
+            android:textSize="14sp" />
+
+        <!-- Text Box with Gray Background and Rounded Borders -->
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_okay"
+            android:text="Export"
+            android:textColor="@color/black" />
+        <!-- Second Big Text -->
+            android:id="@+id/big_text_2"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Import"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Second Small Text -->
+        <TextView
+            android:id="@+id/small_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Click to import the data to you device"
+            android:textSize="14sp" />
+
+        <!-- Button to Choose an Image -->
+
+        <!-- Image Preview -->
+        <!-- Initially hidden -->
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btn_import"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_okay"
+            android:text="Import"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

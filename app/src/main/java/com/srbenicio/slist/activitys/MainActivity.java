@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Uri imageUri;
     private ActivityResultLauncher<Intent> pickImageLauncher;
     private Dialog dialogActive = null;
+    private enum UPDATE_TYPE {DELETE, UPDATE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,28 +133,69 @@ public class MainActivity extends AppCompatActivity {
         EditText titleTextView = dialog.findViewById(R.id.text_input);
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
         Button deleteBtn = dialog.findViewById(R.id.delete_btn);
+        Button saveButton = dialog.findViewById(R.id.save_button);
+        Button saveImageButton = dialog.findViewById(R.id.save_image_button);
+        Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
 
         titleTextView.setHint(item.getTitle());
+
         closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
+        saveButton.setOnClickListener(v -> updateName(item.getId(), dialog));
+        saveImageButton.setOnClickListener(v -> updateImage(item.getId(),dialog));
         deleteBtn.setOnClickListener(v -> deleteGroup(item.getId(), dialog));
 
-        // Show the dialog
+        chooseImageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            pickImageLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+        });
+
         dialog.show();
+    }
+
+    private void updateName(int id, Dialog dialog){
+        EditText titleTextView = dialog.findViewById(R.id.text_input);
+        String inputText = titleTextView.getText().toString();
+
+        if (inputText.isEmpty()) return;
+
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        boolean result = crud.updateName(id,inputText);
+
+        updateFeedback(result, dialog, UPDATE_TYPE.UPDATE);
+    }
+
+    private void updateImage(int id, Dialog dialog){
+        String imageUriString = (imageUri != null) ? imageUri.toString() : "";
+
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        boolean result = crud.updateImage(id, imageUriString);
+
+        updateFeedback(result, dialog, UPDATE_TYPE.UPDATE);
     }
 
     private void deleteGroup(int id, Dialog dialog){
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.delete(id);
 
+        updateFeedback(result, dialog, UPDATE_TYPE.DELETE);
+    }
+
+    private void updateFeedback(boolean result, Dialog dialog, UPDATE_TYPE up){
+
         if (!result){
             Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-        closeDialogActive(dialog);// Close the modal dialog when deletion is successful
-        loadItemsAndShow();  // Refresh the RecyclerView to reflect the changes
+        Toast.makeText(
+                this,
+                (up == UPDATE_TYPE.UPDATE ) ? "Updated" : "Deleted" ,
+                Toast.LENGTH_SHORT).show();
+        closeDialogActive(dialog);
+
+        loadItemsAndShow();
     }
 
     private Optional<Integer> getItemPosition(int id){

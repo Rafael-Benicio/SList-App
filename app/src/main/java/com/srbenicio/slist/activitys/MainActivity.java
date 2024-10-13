@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         imageUri = result.getData().getData();
-                        setImageDialogPreviw();
+                        setImageDialogPreview();
                         Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -139,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
         titleTextView.setHint(item.getTitle());
 
-        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+        closeButton.setOnClickListener(v -> closeDialogActive());
 
-        saveButton.setOnClickListener(v -> updateName(item.getId(), dialog));
-        saveImageButton.setOnClickListener(v -> updateImage(item.getId(),dialog));
-        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId(), dialog));
+        saveButton.setOnClickListener(v -> updateName(item.getId()));
+        saveImageButton.setOnClickListener(v -> updateImage(item.getId()));
+        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId()));
 
         chooseImageButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -154,8 +154,10 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void updateName(int id, Dialog dialog){
-        EditText titleTextView = dialog.findViewById(R.id.text_input);
+    private void updateName(int id){
+        if (dialogActive==null) return;
+
+        EditText titleTextView = dialogActive.findViewById(R.id.text_input);
         String inputText = titleTextView.getText().toString();
 
         if (inputText.isEmpty()) return;
@@ -163,26 +165,26 @@ public class MainActivity extends AppCompatActivity {
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.updateName(id,inputText);
 
-        updateFeedback(result, dialog, UPDATE_TYPE.UPDATE);
+        updateFeedback(result, UPDATE_TYPE.UPDATE);
     }
 
-    private void updateImage(int id, Dialog dialog){
+    private void updateImage(int id){
         String imageUriString = (imageUri != null) ? imageUri.toString() : "";
 
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.updateImage(id, imageUriString);
 
-        updateFeedback(result, dialog, UPDATE_TYPE.UPDATE);
+        updateFeedback(result, UPDATE_TYPE.UPDATE);
     }
 
-    private void deleteGroup(int id, Dialog dialog){
+    private void deleteGroup(int id){
         DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
         boolean result = crud.delete(id);
 
-        updateFeedback(result, dialog, UPDATE_TYPE.DELETE);
+        updateFeedback(result, UPDATE_TYPE.DELETE);
     }
 
-    private void updateFeedback(boolean result, Dialog dialog, UPDATE_TYPE up){
+    private void updateFeedback(boolean result, UPDATE_TYPE updateType){
 
         if (!result){
             Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
@@ -191,22 +193,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(
                 this,
-                (up == UPDATE_TYPE.UPDATE ) ? "Updated" : "Deleted" ,
+                (updateType == UPDATE_TYPE.UPDATE ) ? "Updated" : "Deleted" ,
                 Toast.LENGTH_SHORT).show();
-        closeDialogActive(dialog);
+        closeDialogActive();
 
         loadItemsAndShow();
-    }
-
-    private Optional<Integer> getItemPosition(int id){
-        Optional<Integer> position = Optional.empty();
-        for (int i = 0; i < itemList.size(); i++) {
-            if (itemList.get(i).getId() == id) {
-                position = Optional.of(i);
-                break;
-            }
-        }
-        return position;
     }
 
     private void showModalDialog() {
@@ -218,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
         Button saveButton = dialog.findViewById(R.id.save_button);
 
-        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+        closeButton.setOnClickListener(v -> closeDialogActive());
 
         chooseImageButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -243,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show();
             }
 
-            closeDialogActive(dialog);
+            closeDialogActive();
         });
 
         dialog.show();
@@ -257,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         Button exportBtn = dialog.findViewById(R.id.btn_export);
         Button importBtn = dialog.findViewById(R.id.btn_import);
 
-        closeButton.setOnClickListener(v -> closeDialogActive(dialog));
+        closeButton.setOnClickListener(v -> closeDialogActive());
 
         exportBtn.setOnClickListener(v -> {
             boolean res= DatabaseExporter.exportDatabase(this);
@@ -265,24 +256,26 @@ public class MainActivity extends AppCompatActivity {
                         this,
                         (res)?"SUCCESS in backup process":"FAIL in backup process",
                         Toast.LENGTH_SHORT).show();
-             closeDialogActive(dialog);
+             closeDialogActive();
 
         });
         importBtn.setOnClickListener(v -> {
             DatabaseExporter.importDatabase(this);
             loadItemsAndShow();
-            closeDialogActive(dialog);
+            closeDialogActive();
         });
 
         dialog.show();
     }
 
-    private void closeDialogActive(Dialog dialog){
+    private void closeDialogActive(){
+        if (dialogActive==null) return;
+
+        dialogActive.dismiss();
         dialogActive=null;
-        dialog.dismiss();
     }
 
-    private void setImageDialogPreviw(){
+    private void setImageDialogPreview(){
         if (dialogActive==null) return;
 
         ImageView imagePreview = dialogActive.findViewById(R.id.image_preview);

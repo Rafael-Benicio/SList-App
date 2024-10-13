@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.srbenicio.slist.creators.DatabaseCreator;
 import com.srbenicio.slist.creators.GroupTable;
+import com.srbenicio.slist.creators.ItemTable;
 
 import java.util.Date;
 
@@ -24,6 +25,8 @@ public class DatabaseGroupController {
     public boolean insert(String name, String imageUri) {
         db = database.getWritableDatabase();
 
+        if (name.isEmpty()) return false;
+
         values = new ContentValues();
         values.put(GroupTable.COLUMN_NAME, name);
         values.put(GroupTable.COLUMN_IMAGE, imageUri);  // Store image URI as a String
@@ -33,6 +36,36 @@ public class DatabaseGroupController {
         db.close();
 
         return (result != -1);
+    }
+
+    public boolean updateImage(int id, String imageUri){
+        String where = GroupTable.COLUMN_ID + "=" + id;
+        db = database.getWritableDatabase(); // Use getWritableDatabase()
+
+        if (imageUri.isEmpty()) return false;
+
+        ContentValues values = new ContentValues();
+        values.put(GroupTable.COLUMN_IMAGE, imageUri);
+
+        int result = db.update(GroupTable.TABLE_NAME, values, where, null);
+        db.close();
+
+        return result != -1;
+    }
+
+    public boolean updateName(int id, String name){
+        String where = GroupTable.COLUMN_ID + "=" + id;
+        db = database.getWritableDatabase(); // Use getWritableDatabase()
+
+        if (name.isEmpty()) return false;
+
+        ContentValues values = new ContentValues();
+        values.put(GroupTable.COLUMN_NAME, name);
+
+        int result = db.update(GroupTable.TABLE_NAME, values, where, null);
+        db.close();
+
+        return result != -1;
     }
 
     public Cursor loadData() {

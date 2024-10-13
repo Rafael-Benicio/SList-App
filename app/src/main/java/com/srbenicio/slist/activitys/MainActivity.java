@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         loadItemsAndShow();
 
         FloatingActionButton fab = findViewById(R.id.fab_add);
-        fab.setOnClickListener(view -> showModalDialog());
+        fab.setOnClickListener(view -> showModalToCreateGroup());
 
         pickImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -107,53 +107,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private Dialog getDialogBox(int layout){
-        // Create the dialog
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layout);
-        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
-        //Define dialog box behavior
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setGravity(Gravity.CENTER);
-            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        }
-
-        dialogActive = dialog;
-        return dialog;
-    }
-
-    private void showConfigGroupModal(int position) {
-        GroupItem item = itemList.get(position);
-        final Dialog dialog = getDialogBox(R.layout.modal_config_group_layout);
-
-        EditText titleTextView = dialog.findViewById(R.id.text_input);
-        ImageButton closeButton = dialog.findViewById(R.id.close_button);
-        Button deleteBtn = dialog.findViewById(R.id.delete_btn);
-        Button saveButton = dialog.findViewById(R.id.save_button);
-        Button saveImageButton = dialog.findViewById(R.id.save_image_button);
-        Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
-
-        titleTextView.setHint(item.getTitle());
-
-        closeButton.setOnClickListener(v -> closeDialogActive());
-
-        saveButton.setOnClickListener(v -> updateName(item.getId()));
-        saveImageButton.setOnClickListener(v -> updateImage(item.getId()));
-        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId()));
-
-        chooseImageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            pickImageLauncher.launch(Intent.createChooser(intent, "Select Picture"));
-        });
-
-        dialog.show();
-    }
-
     private void updateName(int id){
         if (dialogActive==null) return;
 
@@ -177,13 +130,6 @@ public class MainActivity extends AppCompatActivity {
         updateFeedback(result, UPDATE_TYPE.UPDATE);
     }
 
-    private void deleteGroup(int id){
-        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
-        boolean result = crud.delete(id);
-
-        updateFeedback(result, UPDATE_TYPE.DELETE);
-    }
-
     private void updateFeedback(boolean result, UPDATE_TYPE updateType){
 
         if (!result){
@@ -200,7 +146,14 @@ public class MainActivity extends AppCompatActivity {
         loadItemsAndShow();
     }
 
-    private void showModalDialog() {
+    private void deleteGroup(int id){
+        DatabaseGroupController crud = new DatabaseGroupController(getBaseContext());
+        boolean result = crud.delete(id);
+
+        updateFeedback(result, UPDATE_TYPE.DELETE);
+    }
+
+    private void showModalToCreateGroup() {
         final Dialog dialog = getDialogBox(R.layout.modal_new_group_layout);
         imageUri = null;
 
@@ -266,6 +219,54 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void showConfigGroupModal(int position) {
+        GroupItem item = itemList.get(position);
+        final Dialog dialog = getDialogBox(R.layout.modal_config_group_layout);
+        imageUri = null;
+
+        EditText titleTextView = dialog.findViewById(R.id.text_input);
+        ImageButton closeButton = dialog.findViewById(R.id.close_button);
+        Button deleteBtn = dialog.findViewById(R.id.delete_btn);
+        Button saveButton = dialog.findViewById(R.id.save_button);
+        Button saveImageButton = dialog.findViewById(R.id.save_image_button);
+        Button chooseImageButton = dialog.findViewById(R.id.choose_image_button);
+
+        titleTextView.setHint(item.getTitle());
+
+        closeButton.setOnClickListener(v -> closeDialogActive());
+
+        saveButton.setOnClickListener(v -> updateName(item.getId()));
+        saveImageButton.setOnClickListener(v -> updateImage(item.getId()));
+        deleteBtn.setOnClickListener(v -> deleteGroup(item.getId()));
+
+        chooseImageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            pickImageLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+        });
+
+        dialog.show();
+    }
+
+    private Dialog getDialogBox(int layout){
+        // Create the dialog
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layout);
+        dialog.setCancelable(false); // Prevent closing the dialog by tapping outside
+        //Define dialog box behavior
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        dialogActive = dialog;
+        return dialog;
     }
 
     private void closeDialogActive(){

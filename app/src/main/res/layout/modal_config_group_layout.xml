@@ -103,12 +103,28 @@
             android:textSize="14sp" />
 
         <!-- Button to Choose an Image -->
-        <Button
-            android:id="@+id/choose_image_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/new_group_image_button" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/choose_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/new_group_image_button" />
+
+            <Button
+                android:id="@+id/save_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_okay"
+                android:text="@string/new_group_save"
+                android:textColor="@color/okay_d" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/big_text_1"

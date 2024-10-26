@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="* Write the item name"
+            android:text="@string/write_the_item_name"
             android:textSize="14sp" />
 
         <!-- Text Box with Gray Background and Rounded Borders -->
@@ -61,7 +61,7 @@
             android:layout_marginTop="12dp"
             android:autofillHints="name"
             android:background="@drawable/edittext_background"
-            android:hint="@string/new_group_name_hint"
+            android:hint="@string/new_group_name_hint_2"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="4"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Description"
+            android:text="@string/description"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Write the item description "
+            android:text="@string/write_the_item_description"
             android:textSize="14sp" />
 
         <!-- Button to Choose an Image -->

@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Export"
+                android:text="@string/export"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="Click to export you data to you device"
+                android:contentDescription="@string/close_export_import_modal"
                 android:src="@drawable/ic_close" />
 
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Click to export you data to you device"
+            android:text="@string/click_to_export_you_data_to_you_device"
             android:textSize="14sp" />
 
         <!-- Text Box with Gray Background and Rounded Borders -->
@@ -60,15 +60,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_okay"
-            android:text="Export"
+            android:text="@string/export"
             android:textColor="@color/black" />
         <!-- Second Big Text -->
-            android:id="@+id/big_text_2"
+
         <TextView
+            android:id="@+id/big_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Import"
+            android:text="@string/_import"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -78,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Click to import the data to you device"
+            android:text="@string/click_to_import_the_data_to_you_device"
             android:textSize="14sp" />
 
         <!-- Button to Choose an Image -->
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_okay"
-            android:text="Import"
+            android:text="@string/_import"
             android:textColor="@color/black" />
 
     </LinearLayout>

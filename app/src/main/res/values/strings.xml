@@ -16,4 +16,24 @@
     <string name="close_modal">Close modal</string>
     <string name="save">SAVE</string>
     <string name="save_group_name">Save group name</string>
+    <string name="updated">Updated:</string>
+    <string name="description_goes_here">Description goes here</string>
+    <string name="created">Created:</string>
+    <string name="item_name">Item Name</string>
+    <string name="decrement">Decrement</string>
+    <string name="_0_template">0</string>
+    <string name="increment">Increment</string>
+    <string name="cover_image">cover image</string>
+    <string name="gear_icon">Gear Icon</string>
+    <string name="write_the_item_description">Write the item description</string>
+    <string name="description">Description</string>
+    <string name="write_the_item_name">* Write the item name</string>
+    <string name="new_group_name_hint_2">New Group Name</string>
+    <string name="clone_new_group_modal">clone new group modal</string>
+    <string name="button_to_set_image_to_new_group">button to set image to new group</string>
+    <string name="click_to_export_you_data_to_you_device">Click to export you data to you device</string>
+    <string name="export">Export</string>
+    <string name="_import">Import</string>
+    <string name="click_to_import_the_data_to_you_device">Click to import the data to you device</string>
+    <string name="close_export_import_modal">close export/ import modal</string>
 </resources>

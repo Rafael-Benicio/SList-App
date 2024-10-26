@@ -39,7 +39,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/new_group_close_modal_button"
+                android:contentDescription="@string/close_modal"
                 android:src="@drawable/ic_close" />
 
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Config new group name"
+            android:text="@string/config_new_group_name"
             android:textSize="14sp" />
 
         <!-- Text Box with Gray Background and Rounded Borders -->
@@ -61,7 +61,7 @@
 
             <EditText
                 android:id="@+id/text_input"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="90"
@@ -76,12 +76,14 @@
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_okay"
-                android:text="@string/new_group_save"
-                android:textColor="@color/okay_d" />
+                android:text="@string/save"
+                android:textColorLink="@color/okay_d"
+                android:contentDescription="@string/save_group_name" />
         </LinearLayout>
+
 
         <!-- Second Big Text -->
         <TextView
@@ -104,12 +106,14 @@
 
         <!-- Button to Choose an Image -->
         <LinearLayout
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/choose_image_button"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -117,22 +121,23 @@
 
             <Button
                 android:id="@+id/save_image_button"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_okay"
                 android:text="@string/new_group_save"
-                android:textColor="@color/okay_d" />
+                android:textColor="#005D00" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/big_text_1"
+            android:id="@+id/big_text_3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
-            android:text="Delete Group"
+            android:text="@string/delete_group"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -142,8 +147,7 @@
             android:layout_height="56dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/btn_negate"
-            android:text="Delete"
-            android:textColor="@color/negate_d" />
+            android:text="@string/delete" />
 
         <!-- Save Button -->
 

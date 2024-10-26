@@ -10,4 +10,10 @@
     <string name="new_group_save">Save</string>
     <string name="new_group_image_button">Choose Image</string>
     <string name="new_group_close_modal_button">close modal button</string>
+    <string name="config_new_group_name">Config new group name</string>
+    <string name="delete_group">Delete Group</string>
+    <string name="delete">Delete</string>
+    <string name="close_modal">Close modal</string>
+    <string name="save">SAVE</string>
+    <string name="save_group_name">Save group name</string>
 </resources>

@@ -8,9 +8,9 @@
     <!-- Buttons -->
     <color name="negate">#f00</color>
     <color name="negate_l">#ff7774</color>
-    <color name="negate_d">#a00</color>
+    <color name="negate_d">#800</color>
 
     <color name="okay">#0f0</color>
     <color name="okay_l">#ccffc4</color>
-    <color name="okay_d">#0a0</color>
+    <color name="okay_d">#080</color>
 </resources>

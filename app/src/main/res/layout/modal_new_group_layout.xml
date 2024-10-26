@@ -39,7 +39,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/new_group_close_modal_button"
+                android:contentDescription="@string/clone_new_group_modal"
                 android:src="@drawable/ic_close" />
 
         </LinearLayout>
@@ -99,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/button_to_set_image_to_new_group"
             android:scaleType="centerCrop"
             android:visibility="gone" /> <!-- Initially hidden -->
 

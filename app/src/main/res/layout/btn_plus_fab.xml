@@ -7,7 +7,7 @@
     android:layout_gravity="bottom|end"
     android:layout_margin="16dp"
     android:backgroundTint="@color/okay"
-    android:contentDescription="@string/plus_fab_button_desc"
+    android:contentDescription="@string/add_element"
     android:src="@drawable/ic_add"
     app:fabCustomSize="64dp"
     app:fabSize="normal"

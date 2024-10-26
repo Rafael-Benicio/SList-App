@@ -34,14 +34,15 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:singleLine="true"
                     android:text="@string/app_name"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
+                    android:textStyle="bold" />
 
                 <!-- Menu ImageButton -->
                 <ImageButton
@@ -50,8 +51,9 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="16dp"
+                    android:contentDescription="@string/open_modal_burger"
                     android:src="@drawable/ic_menu"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
             </LinearLayout>
 

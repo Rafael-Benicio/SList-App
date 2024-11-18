@@ -27,12 +27,10 @@ import com.srbenicio.slist.R;
 import com.srbenicio.slist.controllers.DatabaseItemController;
 import com.srbenicio.slist.creators.ItemTable;
 import com.srbenicio.slist.interfaces.SortByInterface;
-import com.srbenicio.slist.services.SortItensByName;
-import com.srbenicio.slist.services.SortItensByRecordValue;
+import com.srbenicio.slist.services.SortItemsByName;
+import com.srbenicio.slist.services.SortItemsByRecordValue;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class GroupList extends AppCompatActivity {
@@ -41,7 +39,6 @@ public class GroupList extends AppCompatActivity {
     private int groupId;
     private String itemTitle;
     private List<ItemList> itemList;
-    private enum SORT_BY {NAME,RECORD};
     private boolean isDeleteMode = false;
 
     @Override
@@ -137,11 +134,11 @@ public class GroupList extends AppCompatActivity {
 
         ImageButton closeButton = dialog.findViewById(R.id.close_button);
 
-        btnNameUp.setOnClickListener(v -> sortItemList(new SortItensByName(), true));
-        btnNameDown.setOnClickListener(v -> sortItemList(new SortItensByName(), false));
+        btnNameUp.setOnClickListener(v -> sortItemList(new SortItemsByName(), true));
+        btnNameDown.setOnClickListener(v -> sortItemList(new SortItemsByName(), false));
 
-        btnRecordUp.setOnClickListener(v -> sortItemList(new SortItensByRecordValue(),false));
-        btnRecordDown.setOnClickListener(v -> sortItemList(new SortItensByRecordValue(),true));
+        btnRecordUp.setOnClickListener(v -> sortItemList(new SortItemsByRecordValue(),false));
+        btnRecordDown.setOnClickListener(v -> sortItemList(new SortItemsByRecordValue(),true));
 
         closeButton.setOnClickListener(v -> closeDialogActive(dialog));
 
@@ -204,7 +201,6 @@ public class GroupList extends AppCompatActivity {
 
     private void sortItemList(SortByInterface sortServices, boolean ascending) {
         sortServices.sort(itemList, ascending);
-
         // Notify the adapter about data changes
         adapter.notifyDataSetChanged();
     }

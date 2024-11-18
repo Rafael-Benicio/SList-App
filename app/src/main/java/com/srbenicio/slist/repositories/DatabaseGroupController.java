@@ -1,4 +1,4 @@
-package com.srbenicio.slist.controllers;
+package com.srbenicio.slist.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.srbenicio.slist.creators.DatabaseCreator;
 import com.srbenicio.slist.creators.GroupTable;
-import com.srbenicio.slist.creators.ItemTable;
 
 import java.util.Date;
 

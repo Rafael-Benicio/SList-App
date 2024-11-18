@@ -1,4 +1,4 @@
-package com.srbenicio.slist.controllers;
+package com.srbenicio.slist.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.graphics.drawable.ColorDrawable;
 
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,12 +33,11 @@ import com.srbenicio.slist.DatabaseExporter;
 import com.srbenicio.slist.GroupItem;
 import com.srbenicio.slist.adapters.GroupItemAdapter;
 import com.srbenicio.slist.R;
-import com.srbenicio.slist.controllers.DatabaseGroupController;
+import com.srbenicio.slist.repositories.DatabaseGroupController;
 import com.srbenicio.slist.creators.GroupTable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;

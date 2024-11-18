@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.srbenicio.slist.ItemList;
 import com.srbenicio.slist.R;
-import com.srbenicio.slist.controllers.DatabaseItemController;
+import com.srbenicio.slist.repositories.DatabaseItemController;
 
 import java.util.List;
 

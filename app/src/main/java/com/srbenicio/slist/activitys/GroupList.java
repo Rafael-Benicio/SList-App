@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.srbenicio.slist.adapters.ItemAdapter;
 import com.srbenicio.slist.ItemList;
 import com.srbenicio.slist.R;
-import com.srbenicio.slist.controllers.DatabaseItemController;
+import com.srbenicio.slist.repositories.DatabaseItemController;
 import com.srbenicio.slist.creators.ItemTable;
 import com.srbenicio.slist.interfaces.SortByInterface;
 import com.srbenicio.slist.services.SortItemsByName;
